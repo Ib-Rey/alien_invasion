@@ -11,7 +11,8 @@ class Settings():
         self.bullet_speed_factor = 1
         self.bullet_width = 3
         self.bullet_height = 15
-        self.bullet_color = 198, 19, 19
+        self.bullet_color = 237, 214, 88
+        self.bullets_allowed = 3
     #Настройки кораблz
     ship_speed_factor = 1.5
 
