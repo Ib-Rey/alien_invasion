@@ -8,7 +8,7 @@ class Settings():
         self.screen_height = 700
         self.bg_color = (58, 58, 125)
         # Параметры пули
-        self.bullet_speed_factor = 1
+        self.bullet_speed_factor = 5
         self.bullet_width = 3
         self.bullet_height = 15
         self.bullet_color = 237, 214, 88
