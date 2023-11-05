@@ -13,6 +13,9 @@ class Settings():
         self.bullet_height = 15
         self.bullet_color = 237, 214, 88
         self.bullets_allowed = 3
-    #Настройки кораблz
-    ship_speed_factor = 1.5
+        #Настройки кораблz
+        ship_speed_factor = 1.5
+        #Настройка пришельцев
+        self.alien_speed_factor = 1
+
 
