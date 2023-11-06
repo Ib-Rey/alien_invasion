@@ -123,6 +123,8 @@ def update_aliens(ai_settings, stats, screen, ship, aliens, bullets):
     if pygame.sprite.spritecollideany(ship, aliens):
         print('Ship hit!!!')
         ship_hit(ai_settings, stats, screen, ship, aliens, bullets)
+    #Проверка пришельцев, добравшихся до нижнего края
+    check_aliens_bottom(ai_settings, stats, screen, ship, aliens, bullets)
 
 
 def check_fleet_edges(ai_settings, aliens):
@@ -140,16 +142,27 @@ def change_fleet_direction(ai_settings, aliens):
 def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
     '''Обрабатывает столкновение корабля с пришельцем'''
     #Уменьшение ship_left
-    stats.ships_left -= 1 
-    # Очистка списков и пришельцев от пуль
-    aliens.empty()
-    bullets.empty()
-    # Создание нового флота и размещение корабля в центре
-    create_fleet(ai_settings, screen, ship, aliens)
-    ship.center_ship()
-    #Пауза
-    sleep(0.5)
+    if stats.ships_left > 0:
+        stats.ships_left -= 1 
+        # Очистка списков и пришельцев от пуль
+        aliens.empty()
+        bullets.empty()
+        # Создание нового флота и размещение корабля в центре
+        create_fleet(ai_settings, screen, ship, aliens)
+        ship.center_ship()
+        #Пауза
+        sleep(0.5)
+    else:
+        stats.game_active = False
 
+def check_aliens_bottom(ai_settings, stats, screen, ship, aliens, bullets):
+    '''Проверяет добрались ли прищельцы до нижнего края'''
+    screen_rect = screen.get_rect()
+    for alien in aliens.sprites():
+        if alien.rect.bottom >= screen_rect.bottom:
+            #происходит то же, что и при столкновениии с кораблем
+            ship_hit(ai_settings, stats, screen, ship, aliens, bullets)
+            break
       
            
 
