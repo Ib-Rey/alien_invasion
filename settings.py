@@ -15,8 +15,9 @@ class Settings():
         self.bullets_allowed = 3
         #Настройки кораблz
         self.ship_speed_factor = 1.5
+        self.ship_limit = 3
         #Настройка пришельцев
         self.alien_speed_factor = 1
-        self.fleet_drop_speed = 10
+        self.fleet_drop_speed = 30
         # fleet direction = 1 движение вправо,а  -1 - влево
         self.fleet_direction = 1
