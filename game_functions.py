@@ -45,7 +45,8 @@ def check_events(ai_settings, screen, stats, play_button, ship, bullets, aliens)
 def update_screen(ai_settings, screen, stats, ship, aliens, bullets, play_button):
     '''Обновляет изображения на экране и отображает новый экран'''
     #При каждом проходе цикла перерисовывается экран
-    screen.fill(ai_settings.bg_color)
+    #screen.fill(ai_settings.bg_color)
+    screen.blit(ai_settings.bg_color, (0, 0))
     for bullet in bullets.sprites():
         bullet.draw_bullet()
     ship.blitme()

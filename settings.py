@@ -1,3 +1,4 @@
+import pygame
 class Settings():
     #Класс для храения настроек игры
 
@@ -6,7 +7,7 @@ class Settings():
         #Параметры экрана
         self.screen_width = 1100
         self.screen_height = 700
-        self.bg_color = (58, 58, 125)
+        self.bg_color = pygame.image.load('images/space.bmp')
         # Параметры пули
         self.bullet_speed_factor = 5
         self.bullet_width = 3
