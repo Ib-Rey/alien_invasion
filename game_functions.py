@@ -42,7 +42,7 @@ def check_events(ai_settings, screen, stats, play_button, ship, bullets, aliens)
         elif event.type == pygame.KEYUP:
             check_keyup_events(event, ship) 
        
-def update_screen(ai_settings, screen, stats, ship, aliens, bullets, play_button):
+def update_screen(ai_settings, screen, stats, sb, ship, aliens, bullets, play_button):
     '''Обновляет изображения на экране и отображает новый экран'''
     #При каждом проходе цикла перерисовывается экран
     #screen.fill(ai_settings.bg_color)
@@ -53,6 +53,8 @@ def update_screen(ai_settings, screen, stats, ship, aliens, bullets, play_button
     #allien.blitme()
     aliens.draw(screen)
     #Отображение последнего прорисованного экрана
+    #Вывод счета
+    sb.show_score()
     '''Кнопка play_button появляется только в том случае ,если игра 
     неактивна'''
     if not stats.game_active:
@@ -62,7 +64,7 @@ def update_screen(ai_settings, screen, stats, ship, aliens, bullets, play_button
 
 
 
-def update_bullets(ai_settings, screen, ship, aliens, bullets):
+def update_bullets(ai_settings, screen, stats, sb, ship, aliens, bullets):
     """Обновляет позиции пули и уничтожает старые пули"""
     # Обновление позиции пуль
     bullets.update()
@@ -70,13 +72,17 @@ def update_bullets(ai_settings, screen, ship, aliens, bullets):
     for bullet in bullets.copy():
         if bullet.rect.bottom <= 0:
             bullets.remove(bullet)
-        check_bullet_allien_collisions(ai_settings, screen, ship, aliens, bullets)
+        check_bullet_allien_collisions(ai_settings, screen, stats, sb, ship, aliens, bullets)
 
-def check_bullet_allien_collisions(ai_settings, screen, ship, aliens, bullets):
+def check_bullet_allien_collisions(ai_settings, screen, stats, sb, ship, aliens, bullets):
     # Обработка пуль, попавших в пришельцев
     #Проверка попаданий пришельца
     #При обнаружении попадания удалить пулю и пришельца
     collisions = pygame.sprite.groupcollide(bullets, aliens, True, True)
+    if collisions:
+        for aliens in collisions.values():
+            stats.score += ai_settings.alien_points
+        sb.prep_score()
     if len(aliens)==0:
         bullets.empty()
         ai_settings.increase_speed_factor()
@@ -181,6 +187,8 @@ def check_play_button(ai_settings, screen,  stats, play_button, ship, aliens, bu
     '''Запускает новую игру принажатии кнопки play'''
     button_clicked = play_button.rect.collidepoint(mouse_x, mouse_y)
     if button_clicked and not stats.game_active:
+        #Сброс игровых настроек
+        ai_settings.initialize_dinamic_settings()
         # Указатель мыши скрывается
         pygame.mouse.set_visible(False)
 

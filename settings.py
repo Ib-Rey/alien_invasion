@@ -8,6 +8,7 @@ class Settings():
         self.screen_width = 1100
         self.screen_height = 700
         self.bg_color = pygame.image.load('images/space.bmp')
+        self.i_color = 237, 237, 237
         # Параметры пули
         self.bullet_speed_factor = 5
         self.bullet_width = 3
@@ -32,6 +33,9 @@ class Settings():
         self.bullet_speed_factor = 4
         self.alien_speed_factor = 1.2
         self.fleet_direction = 1 # направление движения флота 1  - движение направо
+        #Подсчет очков
+        self.alien_points = 1
+
 
     def increase_speed_factor(self):
         '''Увеличивает настройки скорости'''
